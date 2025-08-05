@@ -736,7 +736,7 @@ form#newsletter-form button,
 
 /* Portfolio Page Styles */
 
-.portfolio-block {
+/* .portfolio-block {
     position: relative;
     margin-bottom: 20px;
     border: 2px solod red;
@@ -773,8 +773,95 @@ form#newsletter-form button,
     font-size: 20px;
     font-weight: 500;
     color: #64707D;
+} */
+
+
+/* Portfolio Styles */
+.portfolio {
+    background: linear-gradient(-40deg, #FBF1D5, #fff);
 }
 
+h2.portfolio-heading {
+    font-family: 'Roboto', sans-serif;
+    font-size: 45px;
+    font-weight: 500;
+    color: #070A57;
+}
+
+.portfolio-buttons button {
+    background: transparent;
+    border: none;
+    padding: 5px 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #070A57;
+    cursor: pointer;
+}
+
+.portfolio-buttons button:hover,
+.portfolio-buttons button.active {
+    color: #FFBA00;
+}
+
+.portfolio-buttons {
+    margin-bottom: 20px;
+}
+
+.myMixCont {
+    margin-top: 30px;
+}
+
+/* .mix { */
+/*     display: none; */
+/* } */
+
+.portfolio-block {
+    position: relative;
+    margin-bottom: 20px;
+    border: 2px solid transparent;
+    /* Fixed typo: 'solod' to 'solid' and removed red for better design */
+    overflow: hidden;
+}
+
+.portfolio-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.portfolio-overlay {
+    position: absolute;
+    background: #FFBA00;
+    height: 90%;
+    width: 90%;
+    top: 5%;
+    left: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.portfolio-block:hover .portfolio-overlay {
+    opacity: 1;
+}
+
+.portfolio-overlay h3 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+    font-weight: 500;
+    color: #070A57;
+}
+
+.portfolio-overlay p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #64707D;
+}
 
 section.portfolio-call-to-action {
     background: #FFEEBF;

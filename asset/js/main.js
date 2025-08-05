@@ -19,13 +19,7 @@ $('#myCarousel .carousel-item').each(function() {
         next.children(':first-child').clone().appendTo($(this));
     }
 });
-var containerEl = document.querySelector('[data-ref~="mixitup-container"]');
 
-// var mixer = mixitup(containerEl, {
-//     selectors: {
-//         target: '[data-ref~="mixitup-target"]'
-//     }
-// });
 
 function openWhatsapp() {
     const phoneNumber = "9779812367676";
@@ -121,4 +115,18 @@ document.addEventListener("DOMContentLoaded",async() => {
     await fetchAllPosts();
     changePage(1);
     // renderPosts(posts);
+});
+
+
+$(document).ready(function () {
+    // Initialize MixItUp
+    var mixer = mixitup('.myMixCont', {
+        selectors: {
+            target: '.mix',
+            control: '.control'
+        },
+        animation: {
+            duration: 300
+        }
+    });
 });
