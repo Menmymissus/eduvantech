@@ -32,7 +32,8 @@ function openWhatsapp() {
 let currentPage = 1;
 const apiURL = "https://dev.to/api/articles?page=1";
 let allPosts=[];
-const POSTS_PER_PAGE = 5;
+const POSTS_PER_PAGE = 6;
+let numberOfPages;
 
 async function fetchAllPosts() {
     try {
@@ -57,13 +58,16 @@ function renderPosts(posts) {
 
     posts.forEach(post => {
         const element = document.createElement("div");
-        element.className = "row justify-content-center m-3";
+        // element.className = "row justify-content-center m-3";
+        element.className = "col-md-4 mb-3";
         element.innerHTML = `
-        <div class="col-md-8 mx-auto">
-            <div class="blog-post border-bottom rounded">
+        <div class="card h-100 shadow-sm">
+            <div class="blog-post border-bottom rounded card-body d-flex flex-column">
                 <a target="_blank" href="${post.url}">
                     <img src="${post.social_image}" class="img-fluid" alt=""/>
-                    <h2>${post.title}</h2>
+                    <div class="d-flex justify-content-center align-items-center" style="height:200px;">
+                        <h4>${post.title}</h4>
+                    </div>
                 </a>
             </div>
         </div>
@@ -80,7 +84,7 @@ function renderPagination() {
     // Previous button
     const prevLi = document.createElement("li");
     prevLi.className = `page-item ${currentPage === 1 ? "disabled":""}`;
-    prevLi.innerHTML = `<button class="page-link" ${currentPage===1} ? 'tabindex="-1" aria-disabled="true"' : "">&laquo; Prev</button>`;
+    prevLi.innerHTML = `<button class="btn btn-success page-link" ${currentPage===1} ? 'tabindex="-1" aria-disabled="true"' : "">&laquo; Prev</button>`;
     prevLi.onclick = () => changePage(currentPage -1);
     ul.appendChild(prevLi);
 
@@ -94,8 +98,8 @@ function renderPagination() {
 
     // Next button
     const nextLi = document.createElement("li");
-    nextLi.className = `page-item ${currentPage === 1 ? "disabled":""}`;
-    nextLi.innerHTML = `<button class="page-link" ${currentPage===pageCount} ? 'tabindex="-1" aria-disabled="true"' : "">Next &raquo;</button>`;
+    nextLi.className = `page-item ${currentPage === numberOfPages ? "disabled":""}`;
+    nextLi.innerHTML = `<button class="btn btn-success page-link" ${currentPage===pageCount} ? 'tabindex="-1" aria-disabled="true"' : "">Next &raquo;</button>`;
     nextLi.onclick = () => changePage(currentPage+1);
     ul.appendChild(nextLi);
 }
@@ -113,20 +117,25 @@ function changePage(page) {
 
 document.addEventListener("DOMContentLoaded",async() => {
     await fetchAllPosts();
+    numberOfPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
     changePage(1);
-    // renderPosts(posts);
 });
 
 
 $(document).ready(function () {
     // Initialize MixItUp
+    var targetSelector = $('.myMixCont').find('.mix').length > 0 ? '.mix' : '.portfolio-block';
     var mixer = mixitup('.myMixCont', {
         selectors: {
-            target: '.mix',
-            control: '.control'
+            target: targetSelector, // Dynamically choose .mix or .portfolio-block
+            control: '.control' // Filter buttons with class .control
         },
         animation: {
-            duration: 300
+            duration: 300,
+            effects: 'fade translateZ(-100px)' // Smooth animation
+        },
+        layout: {
+            allowNestedTargets: true // Support nested targets for project.html
         }
     });
 });
